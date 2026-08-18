@@ -1,11 +1,62 @@
 "use client";
 
 import { useRef, type MouseEvent } from "react";
+import { motion } from "framer-motion";
 
 const STATS = [
   { num: "0", label: "templates used", cardClass: "stat-card stat-a" },
   { num: "100%", label: "original work", cardClass: "stat-card stat-b" },
   { num: "0", label: "boring brand decks", cardClass: "stat-card stat-c" },
+];
+
+const FACTS = [
+  {
+    iconClass: "ic-a",
+    stroke: "#B8790A",
+    icon: (
+      <>
+        <path d="M12 3v2M18.4 5.6l-1.4 1.4M21 12h-2M7 12H5M6.6 5.6L8 7" />
+        <path d="M9 16a3 3 0 1 1 6 0c0 1.5-1 2-1 3.5H10c0-1.5-1-2-1-3.5Z" />
+        <path d="M10 21h4" />
+      </>
+    ),
+    text: "Founded over a sketchbook and one very ambitious to-do list.",
+  },
+  {
+    iconClass: "ic-b",
+    stroke: "#0F8A6C",
+    icon: (
+      <>
+        <path d="M4 9h13a2 2 0 0 1 2 2c0 3-2 5-5 5H8c-2.5 0-4-2-4-4.5V9Z" />
+        <path d="M19 10h1.5a1.5 1.5 0 0 1 0 3H19" />
+        <path d="M7 3.5c0 1-1 1-1 2M11 3.5c0 1-1 1-1 2" />
+      </>
+    ),
+    text: "Coffee-to-idea ratio: high. Ask us anytime.",
+  },
+  {
+    iconClass: "ic-c",
+    stroke: "#D14A1F",
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="8" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="12" cy="12" r="0.6" fill="#D14A1F" />
+      </>
+    ),
+    text: "We've never once shipped the \"safe\" version of anything.",
+  },
+  {
+    iconClass: "ic-d",
+    stroke: "#2A4BAE",
+    icon: (
+      <>
+        <path d="M8 12l2.5 2.5L16 9" />
+        <rect x="3" y="4" width="18" height="16" rx="4" />
+      </>
+    ),
+    text: "New clients welcome. We promise we're normal.",
+  },
 ];
 
 function StatCard({ num, label, cardClass }: { num: string; label: string; cardClass: string }) {
@@ -46,9 +97,16 @@ function StatCard({ num, label, cardClass }: { num: string; label: string; cardC
 
 export default function About() {
   return (
-    <section className="about" id="about">
+    <motion.section
+      className="about"
+      id="about"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="about-grid">
-        <div className="about-left" data-reveal="up">
+        <div className="about-left">
           <p className="about-eyebrow">
             <svg className="eyebrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 20h9" />
@@ -62,60 +120,47 @@ export default function About() {
             strategize second, and ship things people actually stop scrolling for.
           </h2>
           <div className="about-cta-row">
-            <button className="btn-meet">Meet the team</button>
+            <motion.button
+              className="btn-meet"
+              whileHover={{ y: -2, scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+            >
+              Meet the team
+            </motion.button>
             <span className="tag-note">
               real humans, promise
               <span className="wave">🤝</span>
             </span>
           </div>
         </div>
-        <div className="about-stats" data-reveal="up">
+        <div className="about-stats">
           {STATS.map((s) => (
             <StatCard key={s.cardClass} num={s.num} label={s.label} cardClass={s.cardClass} />
           ))}
         </div>
       </div>
       <div className="fact-grid">
-        <div className="fact-card">
-          <div className="fact-icon ic-a">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#B8790A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 3v2M18.4 5.6l-1.4 1.4M21 12h-2M7 12H5M6.6 5.6L8 7" />
-              <path d="M9 16a3 3 0 1 1 6 0c0 1.5-1 2-1 3.5H10c0-1.5-1-2-1-3.5Z" />
-              <path d="M10 21h4" />
-            </svg>
-          </div>
-          <p>Founded over a sketchbook and one very ambitious to-do list.</p>
-        </div>
-        <div className="fact-card">
-          <div className="fact-icon ic-b">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0F8A6C" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4 9h13a2 2 0 0 1 2 2c0 3-2 5-5 5H8c-2.5 0-4-2-4-4.5V9Z" />
-              <path d="M19 10h1.5a1.5 1.5 0 0 1 0 3H19" />
-              <path d="M7 3.5c0 1-1 1-1 2M11 3.5c0 1-1 1-1 2" />
-            </svg>
-          </div>
-          <p>Coffee-to-idea ratio: high. Ask us anytime.</p>
-        </div>
-        <div className="fact-card">
-          <div className="fact-icon ic-c">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#D14A1F" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="8" />
-              <circle cx="12" cy="12" r="4" />
-              <circle cx="12" cy="12" r="0.6" fill="#D14A1F" />
-            </svg>
-          </div>
-          <p>We&apos;ve never once shipped the &quot;safe&quot; version of anything.</p>
-        </div>
-        <div className="fact-card">
-          <div className="fact-icon ic-d">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#2A4BAE" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M8 12l2.5 2.5L16 9" />
-              <rect x="3" y="4" width="18" height="16" rx="4" />
-            </svg>
-          </div>
-          <p>New clients welcome. We promise we&apos;re normal.</p>
-        </div>
+        {FACTS.map((f, i) => (
+          <motion.div
+            className="fact-card"
+            key={f.iconClass}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: i * 0.09 }}
+            whileHover={{ y: -4, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className={`fact-icon ${f.iconClass}`}>
+              <svg viewBox="0 0 24 24" fill="none" stroke={f.stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                {f.icon}
+              </svg>
+            </div>
+            <p>{f.text}</p>
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

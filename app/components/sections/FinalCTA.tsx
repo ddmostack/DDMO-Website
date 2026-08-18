@@ -1,6 +1,14 @@
+import { motion } from "framer-motion";
+
 export default function FinalCTA() {
   return (
-    <section className="final-cta">
+    <motion.section
+      className="final-cta"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <svg className="fc-blob" viewBox="0 0 88 88" style={{ width: "80px", height: "80px", top: "36px", left: "6%" }} aria-hidden="true">
         <path d="M44 78 C20 78 8 62 10 44 C12 24 30 8 48 10 C68 12 78 30 76 48 C74 66 62 78 44 78Z" fill="#FEBD02" />
         <ellipse cx="34" cy="42" rx="7" ry="8.5" fill="#0C2578" />
@@ -62,13 +70,19 @@ export default function FinalCTA() {
                 <polyline points="12 5 19 12 12 19" />
               </svg>
             </div>
-            <a href="mailto:hello@doodlesdynamo.com" className="billboard-email">
+            <motion.a
+              href="mailto:hello@doodlesdynamo.com"
+              className="billboard-email"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+            >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="5" width="18" height="14" rx="2" />
                 <path d="m3 7 9 6 9-6" />
               </svg>
               hello@doodlesdynamo.com
-            </a>
+            </motion.a>
           </div>
           <div className="billboard-trust">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -101,6 +115,6 @@ export default function FinalCTA() {
           </svg>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

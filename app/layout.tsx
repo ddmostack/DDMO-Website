@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import SplashScreen from "./components/SplashScreen";
 
 export const metadata: Metadata = {
-  title: "Doodles Dynamo — Marketing & Design Agency",
+  title: "Doodles Dynamo",
   description:
     "Strategy, design and content that turns scrollers into customers.",
 };
@@ -25,7 +26,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <SplashScreen>{children}</SplashScreen>
+      </body>
     </html>
   );
 }

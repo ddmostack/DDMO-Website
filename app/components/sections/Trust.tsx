@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const TRUST_ITEMS = [
   {
     bg: "#FFF3D6",
@@ -68,7 +70,13 @@ const TRUST_ITEMS = [
 
 export default function Trust() {
   return (
-    <section className="trust">
+    <motion.section
+      className="trust"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="trust-head">
         <p className="trust-eyebrow">
           <svg className="eyebrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -79,8 +87,17 @@ export default function Trust() {
         <h2 className="trust-heading">What you can count on, before you sign anything.</h2>
       </div>
       <div className="trust-grid">
-        {TRUST_ITEMS.map((t) => (
-          <div className="trust-card" key={t.title}>
+        {TRUST_ITEMS.map((t, i) => (
+          <motion.div
+            className="trust-card"
+            key={t.title}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: i * 0.08 }}
+            whileHover={{ y: -5, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
             <div className="trust-icon" style={{ background: t.bg }}>
               <svg viewBox="0 0 24 24" fill="none" stroke={t.stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 {t.icon}
@@ -88,9 +105,9 @@ export default function Trust() {
             </div>
             <h3>{t.title}</h3>
             <p>{t.desc}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

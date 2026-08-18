@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { motion } from "framer-motion";
 import Nav from "../Nav";
 
 const HERO_SPARKLES = [
@@ -36,7 +37,14 @@ const HERO_SPARKLES = [
 
 export default function Hero() {
   return (
-    <div className="hero" id="hero">
+    <motion.div
+      className="hero"
+      id="hero"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="hero-sparkles" aria-hidden="true">
         {HERO_SPARKLES.map((s, i) => (
           <span
@@ -103,7 +111,7 @@ export default function Hero() {
 
       <Nav />
 
-      <div className="content" data-reveal="up">
+      <div className="content">
         <div className="eyebrow">
           <span className="eyebrow-dot"></span>
           Marketing &amp; Design Agency
@@ -128,16 +136,27 @@ export default function Hero() {
         </p>
 
         <div className="cta-row">
-          <button className="btn-primary">
+          <motion.button
+            className="btn-primary"
+            whileHover={{ y: -2, scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
             Let&apos;s fix that
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
             </svg>
-          </button>
-          <a href="#work" className="btn-secondary">
+          </motion.button>
+          <motion.a
+            href="#work"
+            className="btn-secondary"
+            whileHover={{ y: -2, scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
             See our work
-          </a>
+          </motion.a>
 
           <div className="sticky" id="stickyNote">
             creative
@@ -158,7 +177,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="hero-visual" data-reveal="scale">
+      <div className="hero-visual">
         <div className="visual-card">
           <div className="visual-badge">New drop</div>
           <div className="visual-card-header">
@@ -193,6 +212,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

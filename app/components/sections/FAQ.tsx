@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 const FAQS = [
   {
@@ -28,8 +32,17 @@ const FAQS = [
 ];
 
 export default function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   return (
-    <section className="faq" id="faq">
+    <motion.section
+      className="faq"
+      id="faq"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="faq-head">
         <p className="faq-eyebrow">
           <svg className="eyebrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -42,37 +55,54 @@ export default function FAQ() {
         <h2 className="faq-heading">Questions people usually ask.</h2>
       </div>
       <div className="faq-chat">
-        {FAQS.map((item) => (
-          <div className="faq-thread" key={item.q}>
-            <div className="faq-q-row">
-              <div className="faq-avatar">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#5C6480" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="8" r="3.5" />
-                  <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" />
-                </svg>
+        {FAQS.map((item, i) => {
+          const isOpen = openIndex === i;
+          return (
+            <div className={`faq-thread${isOpen ? " open" : ""}`} key={item.q}>
+              <div
+                className="faq-q-row"
+                onClick={() => setOpenIndex(isOpen ? null : i)}
+              >
+                <div className="faq-avatar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#5C6480" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="8" r="3.5" />
+                    <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" />
+                  </svg>
+                </div>
+                <div className="faq-bubble-q">{item.q}</div>
+                <span className="faq-plus">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                </span>
               </div>
-              <div className="faq-bubble-q">{item.q}</div>
-              <span className="faq-plus">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
-                  <line x1="12" y1="5" x2="12" y2="19" />
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
-              </span>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    className="faq-a-row"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.22, 0.68, 0, 1.01] }}
+                    style={{ overflow: "hidden" }}
+                  >
+                    <div className="faq-bubble-a">{item.a}</div>
+                    <div className="faq-avatar brand">
+                      <Image
+                        src="/avatars/ddmo-monogram.jpg"
+                        alt="Doodles Dynamo"
+                        width={40}
+                        height={40}
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <div className="faq-a-row">
-              <div className="faq-bubble-a">{item.a}</div>
-              <div className="faq-avatar brand">
-                <Image
-                  src="/avatars/ddmo-monogram.jpg"
-                  alt="Doodles Dynamo"
-                  width={40}
-                  height={40}
-                />
-              </div>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
-    </section>
+    </motion.section>
   );
 }

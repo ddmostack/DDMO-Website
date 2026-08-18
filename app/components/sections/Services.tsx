@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const SERVICES = [
   {
     num: "01",
@@ -73,7 +75,14 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section className="services" id="services">
+    <motion.section
+      className="services"
+      id="services"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="services-head">
         <p className="services-eyebrow">
           <svg className="eyebrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -85,9 +94,16 @@ export default function Services() {
         </p>
         <h2 className="services-heading">Everything a growing brand needs, minus the agency bloat.</h2>
       </div>
-      <div className="services-grid" data-reveal="up">
-        {SERVICES.map((s) => (
-          <div className="service-card" key={s.num}>
+      <div className="services-grid">
+        {SERVICES.map((s, i) => (
+          <motion.div
+            className="service-card"
+            key={s.num}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: i * 0.09 }}
+          >
             <span className="service-num">{s.num}</span>
             <div className="service-icon" style={{ background: s.bg }}>
               <svg viewBox="0 0 24 24" fill="none" stroke={s.stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -102,9 +118,9 @@ export default function Services() {
               </svg>
             </h3>
             <p>{s.desc}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

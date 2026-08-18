@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const PROJECTS = [
   {
     cat: "Brand Identity",
@@ -97,7 +99,14 @@ const PROJECTS = [
 
 export default function Portfolio() {
   return (
-    <section className="portfolio" id="work">
+    <motion.section
+      className="portfolio"
+      id="work"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="portfolio-head">
         <div>
           <p className="portfolio-eyebrow">
@@ -117,7 +126,16 @@ export default function Portfolio() {
       </div>
       <div className="portfolio-grid">
         {PROJECTS.map((p, i) => (
-          <div className="project-card" key={p.title} data-reveal="up" style={{ transitionDelay: `${(i % 3) * 90}ms` }}>
+          <motion.div
+            className="project-card"
+            key={p.title}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: (i % 3) * 0.09 }}
+            whileHover={{ y: -6, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
             <div className="project-visual">
               <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
                 {p.art}
@@ -136,9 +154,9 @@ export default function Portfolio() {
               <span className="project-cat">{p.cat}</span>
               <h3>{p.title}</h3>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

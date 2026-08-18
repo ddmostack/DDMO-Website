@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const TESTIMONIALS = [
   {
     quote:
@@ -53,7 +55,13 @@ const STAR_PATH = "M12 2l3 6.5 7 1-5.2 4.9L18 21l-6-3.5L6 21l1.2-6.6L2 9.5l7-1z"
 
 export default function Testimonials() {
   return (
-    <section className="testimonials">
+    <motion.section
+      className="testimonials"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="testimonials-head">
         <p className="testimonials-eyebrow">
           <svg className="eyebrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -65,8 +73,17 @@ export default function Testimonials() {
         <p className="testimonials-note">Placeholder reviews — swapping these for real client feedback soon.</p>
       </div>
       <div className="testimonials-track">
-        {TESTIMONIALS.map((t) => (
-          <div className="testi-card" key={t.name}>
+        {TESTIMONIALS.map((t, i) => (
+          <motion.div
+            className="testi-card"
+            key={t.name}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: (i % 3) * 0.08 }}
+            whileHover={{ y: -4, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
             <div className="testi-stars">
               {Array.from({ length: 5 }).map((_, i) => (
                 <svg viewBox="0 0 24 24" fill="#FEBD02" key={i}>
@@ -84,9 +101,9 @@ export default function Testimonials() {
                 <div className="testi-role">{t.role}</div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

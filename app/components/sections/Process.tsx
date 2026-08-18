@@ -1,6 +1,15 @@
+import { motion } from "framer-motion";
+
 export default function Process() {
   return (
-    <section className="process" id="process">
+    <motion.section
+      className="process"
+      id="process"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="process-head">
         <p className="process-eyebrow">
           <svg className="eyebrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -174,9 +183,16 @@ export default function Process() {
           </h3>
           <p className="p-sub">Go from idea → to impact.</p>
           <div className="p-rocks"></div>
-          <button className="p-cta-btn">Let&apos;s talk →</button>
+          <motion.button
+            className="p-cta-btn"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
+            Let&apos;s talk →
+          </motion.button>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

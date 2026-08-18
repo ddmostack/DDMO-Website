@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
+import { motion } from "framer-motion";
 
 const NAV_LINKS = [
   { id: "about", label: "About" },
@@ -140,15 +141,18 @@ export default function Nav() {
                   </li>
                 ))}
               </ul>
-              <button
+              <motion.button
                 className="nav-cta nav-mobile-cta"
                 onClick={() => {
                   setMobileOpen(false);
                   scrollToContact();
                 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
               >
                 Let&apos;s talk
-              </button>
+              </motion.button>
             </div>
           </div>,
           document.body

@@ -1,6 +1,15 @@
+import { motion } from "framer-motion";
+
 export default function Contact() {
   return (
-    <section className="contact-form-section" id="contact">
+    <motion.section
+      className="contact-form-section"
+      id="contact"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="contact-hang" id="contactHang">
       <div className="contact-swing-idle">
       <div className="contact-board">
@@ -110,19 +119,25 @@ export default function Contact() {
               <label htmlFor="cf-message">Tell us about your project</label>
               <textarea id="cf-message" name="message" placeholder="What are you building? What's the timeline?" required></textarea>
             </div>
-            <button type="submit" className="contact-submit">
+            <motion.button
+              type="submit"
+              className="contact-submit"
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+            >
               Send message
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12" />
                 <polyline points="12 5 19 12 12 19" />
               </svg>
-            </button>
+            </motion.button>
           </form>
         </div>
       </div>
       </div>
       </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
