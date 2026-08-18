@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SplashScreen from "./components/SplashScreen";
+import ChatWidget from "./components/ChatWidget";
 
 export const metadata: Metadata = {
   title: "Doodles Dynamo",
@@ -28,6 +29,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <SplashScreen>{children}</SplashScreen>
+        <ChatWidget />
       </body>
     </html>
   );
